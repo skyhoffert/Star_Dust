@@ -1,3 +1,2 @@
-# Star_Dust
-
-The Game!
+# LiSp
+Java engine for 2D game development
