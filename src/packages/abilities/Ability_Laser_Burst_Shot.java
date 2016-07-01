@@ -14,8 +14,8 @@ public class Ability_Laser_Burst_Shot extends Ability{
 	public Ability_Laser_Burst_Shot(){
 		super("ability_laser_burst_shot", 10000);
 		this.lasers_to_be_added = 0;
-		this.time_between_lasers = 150;
-		this.max_lasers = 5;
+		this.time_between_lasers = 50;
+		this.max_lasers = 500;
 		this.speed_modifier = 1.5;
 		this.time_last_laser_used = System.currentTimeMillis();
 	}

@@ -20,6 +20,7 @@ public class Ship_Player extends Ship_Default
 		this.abil_W = new Ability_Side_Dodge();
 		this.abil_E = new Ability_Locked();
 		this.abil_R = new Ability_Locked();
+		this.angle = 1.0;
 	}
 	
 	public void act(GameStage stage)
@@ -28,6 +29,7 @@ public class Ship_Player extends Ship_Default
 		double val;
 		// TODO
 		// should probably be simplified
+		/*
 		if (Main.mouseX > posX){
 			val = Math.atan((Main.mouseY - posY) / (Main.mouseX - posX));
 			if (Math.abs(val - angle) > .01){
@@ -43,6 +45,12 @@ public class Ship_Player extends Ship_Default
 				spinVel = 0;
 			}
 		}
+		*/
+		
+		// System.out.println((float) ((Math.atan2(Main.mouseY, Main.mouseX) - angle) / 50));
+		// spinVel = (float) ((Math.atan2(Main.mouseY - posY, Main.mouseX - posX) - Math.atan2(Math.sin(angle) - posY, Math.cos(angle) - posX)) / 50);
+		val = Math.atan2(posY - Main.mouseY, posX - Main.mouseX) - Math.PI;
+		spinVel = (float) ((val - angle) / 50);
 		
 		if (stage.isLMB){
 			// attack
