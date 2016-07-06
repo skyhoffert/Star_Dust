@@ -1,21 +1,31 @@
 // example entity file that should be used
-//
+// almost all game objects will be entities
+// with health, mass, and velocity
 
 class Entity {
-	
-	// stats every entity will have
-	protected float health;
-	protected float maxHealth;
+
+	// Unity stuff
+	CharController controller;	
 
 	// for movement
 	protected Vector3 velocity;
 
 	// default constructor
 	public Entity(){
-		// initialize everything to default values
-		maxHealth = 500;
-		heatlh = maxHealth;
 		velocity = new Vector3(0, 0, 0);
+	}
+
+	void Start(){
+	}
+
+	void Update(){
+		// if it is not alive
+		MoveByVelocity();
+	}
+
+	// just move by the velocity
+	protected void MoveByVelocity(){
+		controller.Move(velocity * Time.deltaTime);
 	}
 
 }
