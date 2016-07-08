@@ -37,8 +37,14 @@ public class Chunk : Entity {
         base.Act();
         if (!isAlive)
         {
+	    // destroy the object
+	    // only actually happens at the end of the update loop
             Destroy(gameObject);
             // make asteroids
+            // change this to use a prefab, not sure correct
+            Object ASTEROID_PREFAB = Resources.load("pathtoprefab");
+	    GameObject newAsteroid = Instantiate(ASTEROID_PREFAB) as GameObject;
+	    newAsteroid.SetTransform(TRANSFORM, VELOCITY);
         }
     }
 }

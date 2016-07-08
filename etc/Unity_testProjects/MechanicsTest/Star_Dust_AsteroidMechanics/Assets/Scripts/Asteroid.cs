@@ -3,15 +3,16 @@ using System.Collections;
 
 public class Asteroid : Entity {
 
-    public Asteroid(Transform desiredTransform, Vector3 desiredVelocity) {
-        transform.position = desiredTransform.position;
-        velocity = desiredVelocity;
-    }
-
 	// Use this for initialization
 	void Start () {
-        Initialize();
-    }
+        	Initialize();
+	}
+
+	// will be called after instantiating
+	public void SetTransform(Transform targetTransform, Vector3 targetVelocity){
+		transform.position = targetTransform.position;
+		velocity = targetVelocity;
+	}
 
     protected override void Initialize() {
         base.Initialize();
