@@ -24,7 +24,7 @@ public class Chunk : Entity {
     // less calculation later
     private void GenAsteroidDirs() {
         for (int i = 0; i < numAsteroids; i++) {
-            asteroidDirs[i] = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+            asteroidDirs[i] = new Vector3(1, 0, 1);
         }
     }
 
@@ -35,16 +35,14 @@ public class Chunk : Entity {
 
     protected override void Act() {
         base.Act();
-        if (!isAlive)
-        {
-	    // destroy the object
-	    // only actually happens at the end of the update loop
+        if (!isAlive) {
+            // this will destroy after current loop
+            // so it will be good for the remainder
             Destroy(gameObject);
             // make asteroids
-            // change this to use a prefab, not sure correct
-            Object ASTEROID_PREFAB = Resources.load("pathtoprefab");
-	    GameObject newAsteroid = Instantiate(ASTEROID_PREFAB) as GameObject;
-	    newAsteroid.SetTransform(TRANSFORM, VELOCITY);
+            GameObject newAsteroid = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
+            newAsteroid.SendMessage("SetPosition", new Vector3(transform.position.x, 0, transform.position.z));
+            newAsteroid.SendMessage("SetVelocity", asteroidDirs[0]);
         }
     }
 }
