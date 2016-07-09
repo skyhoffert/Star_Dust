@@ -24,7 +24,7 @@ public class Chunk : Entity {
     // less calculation later
     private void GenAsteroidDirs() {
         for (int i = 0; i < numAsteroids; i++) {
-            asteroidDirs[i] = new Vector3(1, 0, 1);
+            asteroidDirs[i] = new Vector3(Random.Range(-2, 2), 0, Random.Range(-2, 2));
         }
     }
 
@@ -40,9 +40,18 @@ public class Chunk : Entity {
             // so it will be good for the remainder
             Destroy(gameObject);
             // make asteroids
-            GameObject newAsteroid = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
-            newAsteroid.SendMessage("SetPosition", new Vector3(transform.position.x, 0, transform.position.z));
-            newAsteroid.SendMessage("SetVelocity", asteroidDirs[0]);
+            GameObject asteroid1 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
+            asteroid1.SendMessage("SetPosition", new Vector3(transform.position.x - .5f, 0, transform.position.z - .5f));
+            asteroid1.SendMessage("SetVelocity", asteroidDirs[0]);
+            GameObject asteroid2 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
+            asteroid2.SendMessage("SetPosition", new Vector3(transform.position.x - .5f, 0, transform.position.z + .5f));
+            asteroid2.SendMessage("SetVelocity", asteroidDirs[1]);
+            GameObject asteroid3 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
+            asteroid3.SendMessage("SetPosition", new Vector3(transform.position.x + .5f, 0, transform.position.z - .5f));
+            asteroid3.SendMessage("SetVelocity", asteroidDirs[2]);
+            GameObject asteroid4 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
+            asteroid4.SendMessage("SetPosition", new Vector3(transform.position.x + .5f, 0, transform.position.z + .5f));
+            asteroid4.SendMessage("SetVelocity", asteroidDirs[2]);
         }
     }
 }
