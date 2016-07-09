@@ -10,7 +10,8 @@ public class Entity : MonoBehaviour {
     // stats
     protected bool isAlive;
     protected float healthBase, healthCurrent;
-    protected float mass;
+
+    public static float COLLISION_DAMAGE_MODIFIER = .5f;
 
     // Use this for initialization
     void Start () {
@@ -24,7 +25,6 @@ public class Entity : MonoBehaviour {
         isAlive = true;
         healthBase = 1;
         healthCurrent = 1;
-        mass = 1;
         rigidBody = GetComponent<Rigidbody>();
     }
 	
@@ -50,6 +50,22 @@ public class Entity : MonoBehaviour {
         if (healthCurrent <= 0){
             healthCurrent = 0;
             isAlive = false;
+        }
+        // debugging
+        // Debug.Log("Damage Applied: " +amount + ", My max health: " + healthBase + ", My current health: " + healthCurrent);
+    }
+
+    public virtual void CollisionWithEntity(float collidingMass, float collidingVelocity) {
+        float damage = collidingMass * collidingVelocity * COLLISION_DAMAGE_MODIFIER;
+        ApplyDamage(damage);
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.collider != null) {
+            if (collision.collider.GetComponent<Entity>()) {
+                collision.collider.GetComponent<Entity>().CollisionWithEntity(rigidBody.mass, collision.relativeVelocity.magnitude);
+                CollisionWithEntity(collision.collider.GetComponent<Entity>().rigidBody.mass, collision.relativeVelocity.magnitude);
+            }
         }
     }
 }

@@ -4,8 +4,7 @@ using System.Collections;
 public class EnemyShip : Ship {
 
 	// Use this for initialization
-	void Start ()
-    {
+	void Start () {
         Initialize();
     }
 
@@ -18,8 +17,7 @@ public class EnemyShip : Ship {
     // Update is called once per frame
     void Update () {
         Act();
-        if (!isAlive)
-        {
+        if (!isAlive) {
             Destroy(gameObject);
         }
 	}
