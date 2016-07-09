@@ -26,17 +26,12 @@ public class Asteroid : Entity {
         healthBase = 100;
         healthCurrent = healthBase;
         if (velSet) {
-            velocity = targetVelocity;
+            rigidBody.velocity = targetVelocity;
         }
         if (posSet) {
             transform.position = targetPosition;
         }
     }
-
-    // Update is called once per frame
-    void Update () {
-        Act();
-	}
 
     protected override void Act() {
         base.Act();

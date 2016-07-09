@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody))]
 public class Entity : MonoBehaviour {
 
-    // controller for movement
-    protected CharacterController controller;
-
-    // movement
-    protected Vector3 velocity;
+    // controller for movement/collision
+    protected Rigidbody rigidBody;
 
     // stats
     protected bool isAlive;
@@ -28,12 +25,11 @@ public class Entity : MonoBehaviour {
         healthBase = 1;
         healthCurrent = 1;
         mass = 1;
-        velocity = new Vector3(0, 0, 0);
-        controller = GetComponent<CharacterController>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         Act();
 	}
 
@@ -43,13 +39,10 @@ public class Entity : MonoBehaviour {
     {
         // if the entity should be doing stuff
         if (isAlive) {
-            MoveByVel();
+            // do nothing?
+            // rigid body is great
+            transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         }
-    }
-
-    // move this controller by the velocity
-    protected virtual void MoveByVel() {
-        controller.Move(velocity * Time.deltaTime);
     }
 
     public virtual void ApplyDamage(float amount) {

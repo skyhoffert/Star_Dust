@@ -26,12 +26,7 @@ public class Ship : Entity {
         base.Initialize();
         hasCollided = false;
         rotationSpeed = 360;
-        standardAccel = 5;
+        standardAccel = 5000;
         maxSpeed = 8;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        Act();
-	}
 }

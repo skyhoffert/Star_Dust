@@ -15,7 +15,7 @@ public class GameCamera : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         cameraTarget = new Vector3(target.position.x, transform.position.y, target.position.z - cameraDistance);
         transform.position = Vector3.Lerp(transform.position, cameraTarget, Time.deltaTime * 8);

@@ -21,11 +21,6 @@ public class ShipController : Ship {
         cam = Camera.main;
     }
 
-    // Update is called once per frame
-    void Update () {
-        Act();
-	}
-
     protected override void Act() {
         base.Act();
         if (isAlive)
@@ -49,24 +44,12 @@ public class ShipController : Ship {
     {
         if (Input.GetButton("MoveForward"))
         {
-            Vector3 direction = transform.forward;
+            Vector3 direction = new Vector3(transform.forward.x, 0f, transform.forward.z);
             direction = direction.normalized;
             direction *= standardAccel * Time.deltaTime;
-            velocity += direction;
-            velocity = (velocity.magnitude > maxSpeed) ? velocity.normalized * maxSpeed : velocity;
-        }
-    }
-
-    protected override void MoveByVel()
-    {
-        if (!hasCollided)
-        {
-            // call super class method
-            base.MoveByVel();
-        } else
-        {
-            velocity = new Vector3(0, 0, 0);
-            hasCollided = false;
+            //rigidBody.velocity += direction;
+            rigidBody.AddForce(direction);
+            //rigidBody.velocity = (rigidBody.velocity.magnitude > maxSpeed) ? rigidBody.velocity.normalized * maxSpeed : rigidBody.velocity;
         }
     }
 

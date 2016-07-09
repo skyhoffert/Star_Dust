@@ -15,7 +15,7 @@ public class Chunk : Entity {
         base.Initialize();
         healthBase = 100;
         healthCurrent = healthBase;
-        numAsteroids = 6;
+        numAsteroids = Random.Range(3,6);
         asteroidDirs = new Vector3[numAsteroids];
         GenAsteroidDirs();
     }
@@ -28,11 +28,6 @@ public class Chunk : Entity {
         }
     }
 
-    // Update is called once per frame
-    void Update () {
-        Act();
-	}
-
     protected override void Act() {
         base.Act();
         if (!isAlive) {
@@ -40,18 +35,12 @@ public class Chunk : Entity {
             // so it will be good for the remainder
             Destroy(gameObject);
             // make asteroids
-            GameObject asteroid1 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
-            asteroid1.SendMessage("SetPosition", new Vector3(transform.position.x - .5f, 0, transform.position.z - .5f));
-            asteroid1.SendMessage("SetVelocity", asteroidDirs[0]);
-            GameObject asteroid2 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
-            asteroid2.SendMessage("SetPosition", new Vector3(transform.position.x - .5f, 0, transform.position.z + .5f));
-            asteroid2.SendMessage("SetVelocity", asteroidDirs[1]);
-            GameObject asteroid3 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
-            asteroid3.SendMessage("SetPosition", new Vector3(transform.position.x + .5f, 0, transform.position.z - .5f));
-            asteroid3.SendMessage("SetVelocity", asteroidDirs[2]);
-            GameObject asteroid4 = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
-            asteroid4.SendMessage("SetPosition", new Vector3(transform.position.x + .5f, 0, transform.position.z + .5f));
-            asteroid4.SendMessage("SetVelocity", asteroidDirs[2]);
+            GameObject[] asteroids = new GameObject[numAsteroids];
+            for (int i = 0; i < numAsteroids; i++) {
+                asteroids[i] = (GameObject)Instantiate(Resources.Load("PreFabs/Asteroid_Test"));
+                asteroids[i].SendMessage("SetPosition", new Vector3(transform.position.x + Random.Range(-1, 1), 0, transform.position.z + Random.Range(-1, 1)));
+                asteroids[i].SendMessage("SetVelocity", asteroidDirs[i]);
+            }
         }
     }
 }
