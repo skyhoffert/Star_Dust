@@ -19,6 +19,8 @@ public class ShipController : Ship {
         healthBase = 500;
         healthCurrent = healthBase;
         cam = Camera.main;
+		// move camera
+		cam.transform.position = new Vector3(transform.position.x, 20, transform.position.z - 60);
     }
 
     protected override void Act() {

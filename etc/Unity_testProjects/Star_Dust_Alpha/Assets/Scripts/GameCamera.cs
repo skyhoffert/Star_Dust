@@ -20,7 +20,7 @@ public class GameCamera : MonoBehaviour {
 		zoomSpeed = 10f;
 		minFOV = 8;
 		maxFOV = 40;
-		this.GetComponent<Camera>().fieldOfView = 20;
+		GetComponent<Camera>().fieldOfView = 20;
 		// lock the cursor on the screen
 		Cursor.lockState = CursorLockMode.Confined;
 		Cursor.visible = true;
