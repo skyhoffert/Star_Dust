@@ -7,17 +7,33 @@ public class ShipController : Ship {
     private Camera cam;
 
     // the gun!
-    public StandardCannon cannon;
+    public StandardLaserGun cannon;
 
-    // Use this for initialization
-    void Start () {
-        Initialize();
-    }
+	// player stats
+	// adjusted health for after passives and actives
+	protected float healthAdjusted;
+	// same sort of layout for power, accel, and velocity
+	protected float powerBase, powerCurrent, powerAdjusted;
+	protected float accelCurrent, accelAdjusted;
+	// current velocity is in the rigid body elements
+	protected float maxspeedAdjusted;
 
     protected override void Initialize() {
         base.Initialize();
-        healthBase = 500;
-        healthCurrent = healthBase;
+
+		rotationSpeed = 240;
+
+		healthBase = 500;
+		healthAdjusted = healthBase;
+        healthCurrent = healthAdjusted;
+
+		powerBase = 100;
+		powerAdjusted = powerBase;
+		powerCurrent = powerAdjusted;
+
+		accelAdjusted = accelBase;
+		accelCurrent = accelAdjusted;
+
         cam = Camera.main;
 		// move camera
 		cam.transform.position = new Vector3(transform.position.x, 20, transform.position.z - 60);
@@ -30,7 +46,10 @@ public class ShipController : Ship {
             PointTowardsMouse();
             SetVel();
             CannonManager();
-        }
+			ApplyDamage(3f);
+        } else {
+			Destroy(gameObject);
+		}
     }
 
     private void PointTowardsMouse()
@@ -48,7 +67,7 @@ public class ShipController : Ship {
         {
             Vector3 direction = new Vector3(transform.forward.x, 0f, transform.forward.z);
             direction = direction.normalized;
-            direction *= standardAccel * Time.deltaTime;
+            direction *= accelCurrent * Time.deltaTime;
             rigidBody.AddForce(direction);
         }
     }
@@ -57,7 +76,7 @@ public class ShipController : Ship {
 
         if (Input.GetButton("Fire"))
         {
-            cannon.Fire();
+            cannon.Shoot();
         }
         else if (Input.GetButtonDown("Fire"))
         {

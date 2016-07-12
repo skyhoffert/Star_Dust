@@ -13,17 +13,11 @@ public class Ship : Entity {
     // the speed that the player can rotation in degrees / second
     protected float rotationSpeed;
     // other speeds
-    protected float standardAccel;
-    protected float maxSpeed;
+    protected float accelBase;
+    protected float maxspeedBase;
 
 	public Canvas uiCanvas;
 	public Image healthBar;
-
-    // Use this for initialization
-    void Start ()
-    {
-        Initialize();
-    }
 
     protected override void Initialize() {
         // initialize base stuff
@@ -32,19 +26,15 @@ public class Ship : Entity {
 		healthCurrent = healthBase;
         hasCollided = false;
         rotationSpeed = 360;
-        standardAccel = 4000;
-        maxSpeed = 8;
+        accelBase = 4000;
+        maxspeedBase = 8;
     }
-
-	void Update() {
-		Act();
-	}
 
 	protected override void Act() {
 		base.Act();
 		if (isAlive) {
 			// keep canvas below ship
-			uiCanvas.transform.position = new Vector3(transform.position.x, 0, transform.position.z - .75f);
+			uiCanvas.transform.position = new Vector3(transform.position.x, .5f, transform.position.z + .5f);
 			// display healthbar
 			healthBar.fillAmount = healthCurrent / healthBase;
 		} else {

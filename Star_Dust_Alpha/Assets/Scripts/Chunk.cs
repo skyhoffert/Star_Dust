@@ -6,11 +6,6 @@ public class Chunk : Entity {
     private int numAsteroids;
     private Vector3[] asteroidDirs;
 
-	// Use this for initialization
-	void Start () {
-        Initialize();
-    }
-
     protected override void Initialize() {
         base.Initialize();
         healthBase = 100;

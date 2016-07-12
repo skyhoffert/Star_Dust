@@ -9,21 +9,11 @@ public class Debris : Entity {
 
 	private float harvestValue;
 
-	// Use this for initialization
-	void Start () {
-		Initialize();
-	}
-
 	protected override void Initialize() {
 		base.Initialize();
 		healthBase = 100;
 		healthCurrent = healthBase;
 		harvestValue = 1;
-	}
-
-	// Update is called once per frame
-	void Update () {
-		Act();
 	}
 
 	protected override void Act() {

@@ -8,11 +8,6 @@ public class Asteroid : Entity {
 
 	private int numDebris;
 
-	// Use this for initialization
-	void Start () {
-        Initialize();
-    }
-
     protected override void Initialize() {
         base.Initialize();
         healthBase = 100;

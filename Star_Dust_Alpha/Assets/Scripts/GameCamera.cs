@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Camera))]
 public class GameCamera : MonoBehaviour {
 
-	// this will be the player's ship's tramsform
+	// this will be the player's ship's transform
 	private Transform target;
 	private float cameraDistance;
 	private float zoomSpeed;
@@ -39,8 +39,10 @@ public class GameCamera : MonoBehaviour {
 			Toggle();
 		}
 		if (isAttached) {
-			cameraTarget = new Vector3(target.position.x, transform.position.y, target.position.z - cameraDistance);
-			transform.position = Vector3.Lerp(transform.position, cameraTarget, Time.deltaTime * 8);
+			if (target) {
+				cameraTarget = new Vector3(target.position.x, transform.position.y, target.position.z - cameraDistance);
+				transform.position = Vector3.Lerp(transform.position, cameraTarget, Time.deltaTime * 8);
+			}
 		} else {
 			float diffX = (Input.mousePosition.x > Screen.width * 7 / 8) ? 10 : (Input.mousePosition.x < Screen.width * 1 / 8) ? -10 : 0;
 			float diffY = (Input.mousePosition.y > Screen.height * 7 / 8) ? 10 : (Input.mousePosition.y < Screen.height * 1 / 8) ? -10 : 0;
@@ -54,6 +56,10 @@ public class GameCamera : MonoBehaviour {
 				this.GetComponent<Camera>().fieldOfView = minFOV;
 			}
 		}
+	}
+
+	public void SetTarget(Transform targetTransform) {
+		target = targetTransform;
 	}
 
 	public void Toggle() {
