@@ -10,6 +10,8 @@ namespace ItemNamespace {
 		public float healthPercentage = 0;
 		public float powerFlat = 0;
 		public float powerPercentage = 0;
+		// adds to ship's shield modifier
+		public float shieldModifier = 0;
 		public float accelFlat = 0;
 
 		protected Item();
@@ -38,8 +40,8 @@ namespace ItemNamespace {
 		public ArmorPiece() : base() {
 			Image = Resources.Load("ArmorPieceIcon.png");
 			cost = 75;
-			sell = 40;	
-			healthFlat = 80;
+			sell = 40;
+			shieldModifier = .05;
 		}
 	}
 }
