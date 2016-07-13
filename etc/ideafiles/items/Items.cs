@@ -7,12 +7,22 @@ namespace ItemNamespace {
 		public float cost = 0;
 		public float sell = 0;
 		public float healthFlat = 0;
-		public float powerFlat = 0;
 		public float healthPercentage = 0;
+		public float powerFlat = 0;
 		public float powerPercentage = 0;
 		public float accelFlat = 0;
 
-		protected GenericItem();
+		protected Item();
+		public Item(Item copyItem){
+			Image = copyItem.Image;
+			cost = copyItem.cost;
+			sell = copyItem.sell;
+			healthFlat = copyItem.healthFlat;
+			healthPercentage = copyItem.healthPercentage;
+			powerFlat = copyItem.powerFlat;
+			powerPercentage = copyItem.powerPercentage;
+			accelFlat = copyItem.accelFlat;
+		}
 	}
 	// adds more power
 	class ExtraBattery : Item {
