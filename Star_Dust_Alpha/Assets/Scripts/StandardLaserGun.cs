@@ -20,7 +20,7 @@ public class StandardLaserGun : MonoBehaviour {
 	// firing type
     public enum FiringType { SEMI, AUTO };
     public FiringType firingType;
-    public int damage;
+    public float damage;
 
     // Use this for initialization
     void Start ()
@@ -44,7 +44,7 @@ public class StandardLaserGun : MonoBehaviour {
 	}
 
     // when we want to fire the cannon
-    public void Shoot()
+    public void FireOnce(float addDmg)
     {
         if (CanShoot())
         {
@@ -57,7 +57,7 @@ public class StandardLaserGun : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, shotDistance)) {
                 shotDistance = hit.distance;
                 if (hit.collider.GetComponent<Entity>()) {
-                    hit.collider.GetComponent<Entity>().ApplyDamage(damage);
+                    hit.collider.GetComponent<Entity>().ApplyDamage(damage + addDmg);
                 }
             }
 			// set next time to shoot
@@ -86,11 +86,11 @@ public class StandardLaserGun : MonoBehaviour {
 		tracer.enabled = false;
 	}
 
-    public void FireContinuous()
+    public void FireContinuous(float addDmg)
     {
         if (firingType == FiringType.AUTO)
         {
-            Shoot();
+            FireOnce(addDmg);
         }
     }
 

@@ -1,16 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using Items;
+
 public class StarShip : Entity {
 
 	// private Shop theShop;
 	private float amountOfResources;
+
+	private Item[] shop;
 
 	protected override void Initialize() {
 		base.Initialize();
 		healthBase = 10000;
 		healthCurrent = healthBase;
 		amountOfResources = 100;
+		shop = new Item[Item.NUM_ITEMS];
+		shop[0] = new ExtraBattery();
+		shop[1] = new ArmorPiece();
 	}
 
 	protected override void Act() {
@@ -28,6 +35,6 @@ public class StarShip : Entity {
 
 	IEnumerator BuildPlayer(float deathTimer) {
 		yield return new WaitForSeconds(deathTimer);
-		GameObject newPlayer = (GameObject)Instantiate(Resources.Load("PreFabs/Player"), transform.position + new Vector3(0, 0, 2), transform.rotation);
+		GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShip>().Reconstruct(transform.GetChild(0).transform.position);
 	}
 }

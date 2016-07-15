@@ -61,7 +61,12 @@ public class Harvester : Ship {
 					}
 				}
 			}
+		} else {
+			// remove the other ui elements
+			Destroy(this.uiCanvas.gameObject);
+			Destroy(this.healthBar.gameObject);
 		}
+
 	}
 
 	// sets its target to the closest debris

@@ -21,6 +21,9 @@ public class EnemyShip : Ship {
 			}
 		} else {
 			Destroy(gameObject);
+			// remove the other ui elements
+			Destroy(uiCanvas.gameObject);
+			Destroy(healthBar.gameObject);
 		}
 	}
 }

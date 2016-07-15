@@ -16,6 +16,9 @@ public class Ship : Entity {
     protected float accelBase;
     protected float maxspeedBase;
 
+	// how much a rebuild cost is worth
+	public float buildCost;
+
 	public Canvas uiCanvas;
 	public Image healthBar;
 
@@ -28,20 +31,23 @@ public class Ship : Entity {
         rotationSpeed = 360;
         accelBase = 4000;
         maxspeedBase = 8;
+		buildCost = 1;
     }
 
 	protected override void Act() {
 		base.Act();
+		// we need to always do this, even when dead
+		// keep canvas below ship
+		uiCanvas.transform.position = new Vector3(transform.position.x, .5f, transform.position.z + .5f);
 		if (isAlive) {
-			// keep canvas below ship
-			uiCanvas.transform.position = new Vector3(transform.position.x, .5f, transform.position.z + .5f);
 			// display healthbar
 			healthBar.fillAmount = healthCurrent / healthBase;
 		} else {
-			// remove the other ui elements
-			Destroy(uiCanvas.gameObject);
-			Destroy(healthBar.gameObject);
 		}
+	}
+
+	public virtual void AddHealth(float amount) {
+		healthBase += amount;
 	}
 
 	protected void PointTowards(Vector3 target) {
